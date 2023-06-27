@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>퀵 중원대</title>
+</head>
+<style>
+    body{
+        text-align:center;
+    }
+    .getData{
+        text-align:center;
+    }
+    .setData{
+        text-align:center;
+    }
+</style>
+<body>
+    <input type="checkbox" id="agree" onclick="showform()">
+    <label for="agree">1. 해당 프로그램은 학번,비밀번호 정보를 서버에서 이용하며,<br>
+    <b><u>서버 내부에서는 학번, 비밀번호 내용을 암호화 하지 않습니다.</u></b><br>
+    이러한 이유로 보안 이슈가 발생할 수 있으며, <br>
+    비밀번호는 다른 계정에서 사용하지 않는 비밀번호를 사용하여 해당 프로그램을 이용하거나,<br>
+    사용하지 말아 주시기 바랍니다.<br>
+    2. 학번, 비밀번호는 서버에서 중원대학교 홈페이지에 로그인 하는 용도로 사용하며 그 외 다른 목적으로 이용하지 않습니다.<br>
+    3. <b><u>사용자의 학번, 비밀번호 는 Apache NiFi 의 Processor별 Data Provenance에 로그로 기록</u></b>되어 있으며 <br>
+    <b><u>해당 데이터는 관리자 외 열람이 불가능하고, 서비스 제공 목적 외 다른 목적으로 사용하지 않습니다.</u></b><br>
+    4. <b><u>위 체크박스에 체크 후 데이터 이용 및 "크롤링 시작" 버튼 클릭 시 데이터 보안 이슈에 대해 문제가 발생 시 관리자에게 책임을 묻지 않음에 동의합니다.</u></b><br>
+    <h3>개발자와 소통</h3>
+    1. 깃허브 🌐 : <a href="https://github.com/hbcha0916">GitHub</a><br>
+    2. 블로그 🌐 : <a href="https://hbcha0916.tistory.com/">Tistory</a><br>
+    3. 이메일 📧 : <a href="mailto:hbcha0916@naver.com">send email</a><br>
+    </label>
+    <form name="profile" action="http://chb0110.synology.me:7858" method="POST" autocomplete="on" enctype="text/plain">
+        <h1> Quick JWU </h1>
+        <input type="text" name="id"><br>
+        <label for="id">학번을 입력해 주세요.</label><br>
+        <input type="password" name="pw"><br>
+        <label for="pw">통합정보시스템 패스워드를 입력해 주세요.</label>
+        <div class="getData">
+            <h2>얻을 정보</h2>
+            <input type="checkbox" name="getCredit" id="getCredit"><label for="getCredit">학점 취득 현황</label><br>
+            <input type="checkbox" name="getScore" id="getScore"><label for="getScore">상벌점 현황</label><br>
+            <input type="checkbox" name="getCD" id="getCD"><label for="getCD">비교과 이수현황</label><br>
+        </div>
+        <div class="setData">
+            <h2>신청하기</h2>
+                <h3>1. 외박신청</h3>
+                <input type="checkbox" name="sleepover" id="sleepover" onclick="settingsleepover_area()">
+                <label for="sleepover">외박신청하기</label><br>
+                <div class="sleepover_area">
+                    <label>외박 시작날짜 - </label><input type="text" name="sleepover_start" style="width:90px" value="예:20230601" onfocus="this.value=''" >&nbsp;&nbsp;
+                    <label>외박 끝 날짜 - </label><input type="text" name="sleepover_end" style="width:90px" value="예:20230602" onfocus="this.value=''" ><br>
+                    <label>자택 전화번호 - </label><input type="text" name="sleepover_home_nm" style="width:90px" value="0430000000" onfocus="this.value=''" ><br>
+                    <label>이름 - </label><input type="text" name="sleepover_name" style="width:50px" value="김철수" onfocus="this.value=''" >&nbsp;&nbsp;
+                    <label>관계 - </label><input type="text" name="sleepover_rel" style="width:40px" value="본인" onfocus="this.value=''" ><br>
+                    <label>사유 - </label><input type="text" name="sleepover_why" style="width:300px" value="집에 갑니다." onfocus="this.value=''" ><br>
+                </div>
+
+                
+
+                   
+
+            </table>
+        </div>
+        <input type="submit" value="크롤링 시작" onclick="this.value='잠시만 기다려 주세요.'"> <!-- 서버 제출 버튼 -->
+      </form>
+</body>
+<script>
+    function showform(){
+        if($('#agree').is(':checked')){
+            $('form').show();
+        }else{
+            $('form').hide();
+        }
+    };
+    function settingsleepover_area(){
+        if($('#sleepover').is(':checked')){
+            $('.sleepover_area').show();
+        }else{
+            $('.sleepover_area').hide();
+        }
+    }
+    function test(){
+        $.ajax('https://suggestqueries.google.com/complete/search?output=toolbar&hl=ko&q=elasticsearch').done(function(data) {
+        console.log(data)
+        })
+    }
+    $(document).ready(function () {
+        showform();
+        settingsleepover_area();
+        test();
+    });
+    
+    
+</script>
+</html>
